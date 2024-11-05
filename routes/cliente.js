@@ -42,7 +42,27 @@ router.get("/:id", async function (req,res) {
     }
     
 });
+router.get("/:id/buscar", async function (req,res) {
 
+    const id = req.params.id;
+
+    try{
+
+        code = 200;
+        msg = "Los pedidos del cliente con el id " +id+ " han sido encontrado correctamente.";
+        const TotalPedidos = await clienteService.getAllPedidos(id);
+        const TotalInvertido = await clienteService.getSumaTotal(id);
+        
+        res.status(200).json({code,msg,TotalInvertido,TotalPedidos});
+
+    }catch(err){
+        console.error(err.message);
+        res.status(501).json({msg: "Error al obtener listado de pedidos, revisa la consola."});
+    }
+
+
+    
+});
 router.post("/", async function (req,res) {
     
     const{id,nombre,apellido1,apellido2,ciudad,categoria} = req.body;

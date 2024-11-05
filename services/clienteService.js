@@ -22,9 +22,29 @@ async function getClienteById(id) {
     return data
 }
 
+async function getAllPedidos(id) {
+
+    let sql = "SELECT pedido.id, pedido.fecha, pedido.total FROM pedido WHERE id_cliente=" +id+ ";"
+
+    const rows = await db.query(sql);
+    const data = helper.emptyOrRows(rows);
+    
+    return data
+    
+}
+
+async function getSumaTotal(id) {
+
+    let sql = "SELECT SUM(total) AS Total FROM pedido WHERE id_cliente=" +id+ ";"
+   
+    const rows = await db.query(sql);
+    const data = helper.emptyOrRows(rows);
+    
+    return data
+}
 async function newCliente(cliente) {
 
-    let sql = "INSERT INTO `cliente`(`nombre`,`apellido1`,`apellido2`,`ciudad`,`categoria`) VALUES (";7
+    let sql = "INSERT INTO `cliente`(`nombre`,`apellido1`,`apellido2`,`ciudad`,`categoria`) VALUES (";
 
     sql += "'"+cliente.nombre+"','"+cliente.apellido1+"','"+cliente.apellido2+"','"+cliente.ciudad+"','"+cliente.categoria+"');";
 
@@ -36,5 +56,7 @@ async function newCliente(cliente) {
 module.exports ={
     getAllclientes,
     getClienteById,
-    newCliente
+    newCliente,
+    getAllPedidos,
+    getSumaTotal
 }
