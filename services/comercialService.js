@@ -5,24 +5,34 @@ const config = require('../config');
 async function getAllComercial() {
 
     let sql = "SELECT * FROM comercial"
-    console.debug(sql);
+   
     const rows = await db.query(sql);
     const data = helper.emptyOrRows(rows);
 
-    return {data}
+    return data
 }
 
 async function getOneComercial(id) {
 
     let sql = "SELECT * FROM comercial WHERE id=" +id+ ";"
-    console.debug(sql);
+    
     const rows = await db.query(sql);
     const data = helper.emptyOrRows(rows);
 
-    return {data}
+    return data
     
+}
+
+async function newComercial(comercial) {
+
+    let sql = "INSERT INTO `comercial`(`nombre`, `apellido1`, `apellido2`, `comision`) VALUES (";
+    sql+= "'"+comercial.nombre+"','"+comercial.apellido1+"','"+comercial.apellido2+"','"+comercial.comision+"');";
+
+    return comercial
+
 }
 module.exports = {
     getAllComercial,
-    getOneComercial
+    getOneComercial,
+    newComercial
 }

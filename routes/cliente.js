@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const comercialService = require ("../services/comercialService");
+const clienteService = require ("../services/clienteService");
+
 
 router.get("/", async function (req,res) {
 
@@ -9,14 +10,14 @@ router.get("/", async function (req,res) {
 
     try{
         code = 200;
-        msg = "Todos los comerciales obtenidos correctamente.";
-        const TodosLosComerciales= await comercialService.getAllComercial();
+        msg = "Todos los clientes obtenidos correctamente.";
+        const TodosLosClientes = await clienteService.getAllclientes();
 
-        res.status(200).json({code,msg,TodosLosComerciales});
+        res.status(200).json({code,msg,TodosLosClientes});
 
     }catch(err){
         console.error(err.message);
-        res.status(501).json({msg: "Error al obtener la lista de comerciales, revisa la consola."});
+        res.status(501).json({msg: "Error al obtener la lista de clientes, revisa la consola."});
     }
     
 });
@@ -30,21 +31,21 @@ router.get("/:id", async function (req,res) {
     try{
 
         code = 200;
-        msg = "EL comercial con el id " +id+ " ha sido buscado correctamente";
-        const buscaPorId = await comercialService.getOneComercial(id);
+        msg = "EL cliente con el id " +id+ " ha sido buscado correctamente";
+        const buscaPorId = await clienteService.getClienteById(id);
 
         res.status(200).json({code,msg,buscaPorId});
 
     }catch(err){
         console.error(err.message);
-        res.status(501).json({msg: "Error al obtener el comercial a traves del id, revisa la consola."});
+        res.status(501).json({msg: "Error al obtener el cliente a traves del id, revisa la consola."});
     }
     
 });
 
 router.post("/", async function (req,res) {
     
-    const{id,nombre,apellido1,apellido2,comision} = req.body;
+    const{id,nombre,apellido1,apellido2,ciudad,categoria} = req.body;
     let msg,code;
 
     if((nombre == undefined)||(apellido1 == undefined)||(apellido2 == undefined)){
@@ -52,24 +53,25 @@ router.post("/", async function (req,res) {
         res.status(401).json({msg:"El nombre y los dos primeros apellidos son obligatorios para introducir un nuevo comercial."})
     }else{
 
-        let comer = {
+        let clientes = {
 
             id:id,
             nombre:nombre,
             apellido1:apellido1,
             apellido2:apellido2,
-            comision:comision,
+            ciudad:ciudad,
+            categoria:categoria
         }  
     try{
-        const Comercial = await comercialService.newComercial(comer);
+        const Cliente = await clienteService.newCliente(clientes);
         code = 200;
-        msg = "Comercial nuevo creado correctamente."
+        msg = "Cliente nuevo creado correctamente."
 
-        res.status(200).json({code,msg,Comercial});
+        res.status(200).json({code,msg,Cliente});
     }catch(err){
 
         console.error(err.message);
-        res.status(501).json({msg: "Error al crear un nuevo comercial, revisa la consola."});
+        res.status(501).json({msg: "Error al crear un nuevo cliente, revisa la consola."});
     }
 }
 });
