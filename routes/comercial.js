@@ -10,9 +10,9 @@ router.get("/", async function (req,res) {
     try{
         code = 200;
         msg = "Todos los comerciales obtenidos correctamente.";
-        const TodosLosComerciales= await comercialService.getAllComercial();
+        const todosLosComerciales= await comercialService.getAllComercial();
 
-        res.status(200).json({code,msg,TodosLosComerciales});
+        res.status(200).json({code,msg,todosLosComerciales});
 
     }catch(err){
         console.error(err.message);
