@@ -61,11 +61,11 @@ router.post("/", async function (req,res) {
             comision:comision,
         }  
     try{
-        const Comercial = await comercialService.newComercial(comer);
+        const comercial = await comercialService.newComercial(comer);
         code = 200;
         msg = "Comercial nuevo creado correctamente."
 
-        res.status(200).json({code,msg,Comercial});
+        res.status(200).json({code,msg,comercial});
     }catch(err){
 
         console.error(err.message);

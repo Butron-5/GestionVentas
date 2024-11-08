@@ -28,7 +28,10 @@ async function newComercial(comercial) {
     let sql = "INSERT INTO `comercial`(`nombre`, `apellido1`, `apellido2`, `comision`) VALUES (";
     sql+= "'"+comercial.nombre+"','"+comercial.apellido1+"','"+comercial.apellido2+"','"+comercial.comision+"');";
 
-    return comercial
+    const rows = await db.query(sql);
+    const data = helper.emptyOrRows(rows);
+
+    return data;
 
 }
 module.exports = {

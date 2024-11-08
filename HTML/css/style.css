@@ -2,3 +2,9 @@
     display: block;
     color:red;
 }
+
+.boton{
+
+    float:left;
+    margin-left: 10px;
+}

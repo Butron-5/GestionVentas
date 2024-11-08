@@ -25,7 +25,7 @@ function buscar(){
             console.error("Error en catch: " +error.message);
             errorElement.textContent = "Error fetching data: " + error.message;
         })
-}
+};
 
 function buscarId(){
     const idComercial = document.getElementById("identificador");
@@ -52,7 +52,7 @@ function buscarId(){
         console.error("Error en catch: " +error.message);
         errorElement.textContent = "Error fetching comercial data: " + error.message;
     })
-}
+};
 function rellenarTabla(data){//data es un array de datos que hay que pintar
 
     const table = document.getElementById("resultados");
@@ -76,4 +76,4 @@ function rellenarTabla(data){//data es un array de datos que hay que pintar
     }
 
     table.innerHTML = out;
-}
+};
