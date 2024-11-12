@@ -2,6 +2,11 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 
+/**
+*Funcion para recuperar todos los comerciales disponibles.
+*@returns {Array} lista de todos los comerciales.
+*/
+
 async function getAllComercial() {
 
     let sql = "SELECT * FROM comercial"

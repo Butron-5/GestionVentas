@@ -62,10 +62,11 @@ router.post("/", async function (req,res) {
         }  
     try{
         const comercial = await comercialService.newComercial(comer);
+        const comercialCreado = await comercialService.getOneComercial(comercial.insertId)
         code = 200;
-        msg = "Comercial nuevo creado correctamente."
+        msg = "Comercial nuevo creado correctamente con id " + comercial.insertId;
 
-        res.status(200).json({code,msg,comercial});
+        res.status(200).json({code,msg,comercialCreado});
     }catch(err){
 
         console.error(err.message);

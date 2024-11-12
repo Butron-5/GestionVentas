@@ -1,4 +1,4 @@
-
+import { urlComercial,converToJson } from "./utilidades.js";
 window.onload = function(){
 
 const formulario = document.getElementById("formulario");
@@ -12,8 +12,6 @@ formulario.addEventListener('submit', function(e){
 };
 function crearComercial(){
     
-    const url = "http://localhost:3000/comercial/"
-
     var datos = new FormData (formulario);
     console.log(datos);
     console.log(datos.get('nombre'));
@@ -23,7 +21,7 @@ function crearComercial(){
 
     let jsonForm = converToJson(datos);
 
-    fetch(url,{method:'POST', 
+    fetch(urlComercial,{method:'POST', 
         body: JSON.stringify(jsonForm),
         headers: {'Content-Type':'application/json'}
     }).then(
@@ -36,16 +34,12 @@ function crearComercial(){
             
             const muestramelo = document.getElementById("new");
             
-            muestramelo.textContent = data.insertId + JSON.stringify(data.Comercial);
+            muestramelo.textContent = data.insertId + JSON.stringify(data.comercialCreado);
             }
-        )
+        ).catch(error => {
+            console.error("Error en catch: " +error.message);
+            errorElement.textContent = "Error fetching comercial data: " + error.message;
+        })
+        formulario.reset(); 
 };
-function converToJson(formData){
-    let jsonObject = {}
-    formData.forEach((value,key) => {
-        jsonObject[key] = value;
-    });
 
-    console.log(jsonObject);
-    return jsonObject
-}

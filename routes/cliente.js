@@ -83,11 +83,12 @@ router.post("/", async function (req,res) {
             categoria:categoria
         }  
     try{
-        const Cliente = await clienteService.newCliente(clientes);
+        const cliente = await clienteService.newCliente(clientes);
+        const clienteCreado = await clienteService.getClienteById(cliente.insertId)
         code = 200;
-        msg = "Cliente nuevo creado correctamente."
+        msg = "Cliente nuevo creado correctamente " + cliente.insertId;
 
-        res.status(200).json({code,msg,Cliente});
+        res.status(200).json({code,msg,clienteCreado});
     }catch(err){
 
         console.error(err.message);

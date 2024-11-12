@@ -49,9 +49,10 @@ async function newCliente(cliente) {
     sql += "'"+cliente.nombre+"','"+cliente.apellido1+"','"+cliente.apellido2+"','"+cliente.ciudad+"','"+cliente.categoria+"');";
 
     const rows = await db.query(sql);
-   
+    const data = helper.emptyOrRows(rows);
+    
 
-    return cliente
+    return data
 }
 module.exports ={
     getAllclientes,
